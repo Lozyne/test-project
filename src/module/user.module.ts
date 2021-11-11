@@ -11,5 +11,6 @@ import { UserService } from "src/service/user.service";
       ...userProviders,
       UserService,
     ],
+    exports: [UserService]
   })
   export class UserModule {}

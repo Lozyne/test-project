@@ -10,9 +10,18 @@ export class UserService {
     private userRepository: Repository<User>,
   ) {}
 
+
+  async findByLogin(login: string): Promise<User | undefined> {
+    return await this.userRepository.findOne({
+      where: {
+        login,
+      }
+      
+    });
+  }
+  
   async findAll(): Promise<User[]> {
     return this.userRepository.find();
   }
 
-  // TODO: find by mail
 }
