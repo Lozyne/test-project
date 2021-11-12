@@ -13,4 +13,6 @@ export class User {
 
     @Column({ length: 500 })
     mail: string;
+
+    
 }

@@ -1,4 +1,4 @@
-import { DATABASE_CONNECTION } from 'src/constant/provider.constant';
+import { DATABASE_CONNECTION } from 'src/conf/constant/provider.constant';
 import { createConnection } from 'typeorm';
 
 export const databaseProviders = [

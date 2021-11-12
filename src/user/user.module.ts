@@ -3,6 +3,7 @@ import { UserController } from "src/user/user.controller";
 import { DatabaseModule } from "src/database.module";
 import { userProviders } from "src/user/user.provider";
 import { UserService } from "src/user/user.service";
+import { PassportModule } from "@nestjs/passport";
 
 @Module({
     imports: [DatabaseModule],
