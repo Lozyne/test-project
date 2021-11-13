@@ -13,7 +13,6 @@ export class UserService {
 
     ) {}
 
-
   async findByLogin(login: string): Promise<UserDTO> {
     let userDto: UserDTO;
     await this.userRepository.findOne({
