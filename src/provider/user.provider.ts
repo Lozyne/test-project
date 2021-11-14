@@ -1,6 +1,6 @@
 import { DATABASE_CONNECTION, USER_REPOSITORY } from "src/conf/constant/provider.constant";
-import { User } from "src/user/user.entity";
 import { Connection } from "typeorm";
+import { User } from "../entity/user.entity";
 
 export const userProviders = [
     {

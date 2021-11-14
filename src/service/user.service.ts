@@ -1,9 +1,10 @@
 import { HttpException, Inject, Injectable } from "@nestjs/common";
 import { USER_REPOSITORY } from "src/conf/constant/provider.constant";
-import { getUserEntityToUserDto } from "src/user/user-mapper";
-import { User } from "src/user/user.entity";
 import { Repository } from "typeorm";
-import { UserDTO } from "./model/user.model";
+import * as bcrypt from 'bcrypt';
+import { UserDTO } from "src/model/user/user.model";
+import { User } from "src/entity/user.entity";
+import { getUserEntityToUserDto } from "src/mapper/user-mapper";
 
 @Injectable()
 export class UserService {
@@ -27,7 +28,11 @@ export class UserService {
   }
 
   async createUser(user: UserDTO): Promise<User> {
-      return await this.userRepository.save(user)
+    const salt = await bcrypt.genSalt();
+    const hash: string = await bcrypt.hash(user.password, salt);
+    user.password = hash;
+
+    return await this.userRepository.save(user)
       .catch((error:HttpException) => Promise.reject(error));
   }
 }

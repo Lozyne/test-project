@@ -1,10 +1,9 @@
 import { HttpException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { Test, TestingModule } from '@nestjs/testing';
-import { UserDTO } from '../user/model/user.model';
-import { UserService } from '../user/user.service';
-
-import { AuthService } from './auth.service';
+import { UserDTO } from 'src/model/user/user.model';
+import { AuthService } from 'src/service/auth.service';
+import { UserService } from 'src/service/user.service';
 
 describe('AuthService', () => {
   let service: AuthService;
@@ -100,5 +99,17 @@ describe('AuthService', () => {
     expect(spyOnUserService).toBeCalledTimes(1);
     expect(spyOnUserService).toBeCalledWith('Alice');
     expect(validateUser).toEqual(Promise.resolve(null));
+  });
+
+  it('should return error error when validateUser throws error', async () => {
+    let spyOnUserService = jest.spyOn(userService, 'findByLogin').mockImplementation(() =>{ 
+      throw new HttpException("error", 400);
+    });
+
+    let validateUser = service.validateUser('Alice', '124');
+    
+    expect(spyOnUserService).toBeCalledTimes(1);
+    expect(spyOnUserService).toBeCalledWith('Alice');
+    expect(validateUser).rejects.toThrow(new HttpException('error find login', 400));
   });
 });

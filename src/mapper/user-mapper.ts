@@ -1,5 +1,5 @@
-import { UserDTO } from "./model/user.model";
-import { User } from "./user.entity";
+import { UserDTO } from "../model/user/user.model";
+import { User } from "../entity/user.entity";
 
 
     export function getUserDtoToUserEntity(userDTO: UserDTO): User {

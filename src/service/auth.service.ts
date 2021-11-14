@@ -1,9 +1,10 @@
 import { HttpException, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { ResponseToken } from 'src/response-token.model';
-import { UserDTO } from 'src/user/model/user.model';
-import { User } from 'src/user/user.entity';
-import { UserService } from 'src/user/user.service';
+import { UserDTO } from 'src/model/user/user.model';
+import * as bcrypt from 'bcrypt';
+import { ResponseToken } from 'src/model/auth/response-token.model';
+import { User } from 'src/entity/user.entity';
+import { UserService } from './user.service';
 
 @Injectable()
 export class AuthService {
@@ -14,14 +15,20 @@ export class AuthService {
 
     async validateUser(login: string, password: string): Promise<UserDTO> {
       let userResult: UserDTO = null;
-      const user: UserDTO = await this.usersService.findByLogin(login);
+      try {
+        const user: UserDTO = await this.usersService.findByLogin(login);
 
-      if (user && user.password === password) {
+        if (user && user.password === password) {
+  
+          userResult = user;
+        }
+  
+        return userResult;
 
-        userResult = user;
+      } catch(error) {
+        throw new HttpException('error find login', 400); 
       }
 
-      return userResult;
     }
 
     async login(user: User): Promise<ResponseToken> {
