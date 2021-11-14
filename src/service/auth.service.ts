@@ -1,10 +1,11 @@
 import { HttpException, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UserDTO } from 'src/model/user/user.model';
-import * as bcrypt from 'bcrypt';
 import { ResponseToken } from 'src/model/auth/response-token.model';
 import { User } from 'src/entity/user.entity';
 import { UserService } from './user.service';
+import { hash } from 'src/shared/hash';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class AuthService {
@@ -17,8 +18,8 @@ export class AuthService {
       let userResult: UserDTO = null;
       try {
         const user: UserDTO = await this.usersService.findByLogin(login);
-
-        if (user && user.password === password) {
+        const verifyMatchForPassword = await bcrypt.compare(password, user.password);
+        if (user && verifyMatchForPassword) {
   
           userResult = user;
         }
