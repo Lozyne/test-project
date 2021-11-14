@@ -1,6 +1,8 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { IsEmail } from "class-validator";
+import { Column, Entity, PrimaryGeneratedColumn, Unique } from "typeorm";
 
 @Entity('user')
+@Unique(['mail'])
 export class User {
     @PrimaryGeneratedColumn('increment', {
         type: 'integer'
@@ -14,6 +16,7 @@ export class User {
     password: string;
 
     @Column({ length: 500 })
+    @IsEmail()
     mail: string;
 
     

@@ -7,7 +7,10 @@ import { Connection } from 'typeorm';
 import { typeOrmConf } from './conf/database.providers';
 
 @Module({
-  imports: [UserModule, AuthModule, TypeOrmModule.forRoot(typeOrmConf)],
+  imports: [
+     UserModule,
+     AuthModule, 
+     TypeOrmModule.forRoot(typeOrmConf)],
   controllers: [AppController],
   providers: [],
 })

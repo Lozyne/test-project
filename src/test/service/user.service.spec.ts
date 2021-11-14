@@ -58,7 +58,6 @@ fdescribe('UserService', () => {
   it('should return user when create user in db and save is ok', async () => {
     let createdUser = await userService.createUser(userDTO);
 
-    console.log(createdUser)
     let expectedUser= {id:1, login:'Alice', password: '1234', mail:'truc@pmail.com' }
     
     expect(createdUser).toEqual(expectedUser);

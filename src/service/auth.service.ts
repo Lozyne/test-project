@@ -20,7 +20,6 @@ export class AuthService {
         const user: UserDTO = await this.usersService.findByLogin(login);
         const verifyMatchForPassword = await bcrypt.compare(password, user.password);
         if (user && verifyMatchForPassword) {
-  
           userResult = user;
         }
   
@@ -33,6 +32,7 @@ export class AuthService {
     }
 
     async login(user: User): Promise<ResponseToken> {
+
         const payload = { login: user.login, sub: user.id };
         try {
           let token: string = this.jwtService.sign(payload);
