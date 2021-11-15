@@ -7,7 +7,6 @@ import { UserDTO } from "src/model/user/user.model";
 import { AuthService } from "src/service/auth.service";
 
 @Controller('auth')
-@ApiBearerAuth()
 export class AuthController {
     constructor( private authService: AuthService) {}
 
