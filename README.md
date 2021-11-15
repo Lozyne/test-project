@@ -33,5 +33,29 @@ npm i -g @nestjs/cli
 npm start: dev
 ```
 ## SWAGGER
+There is a swagger, run application and go to this link
 http://localhost:8000/api
+
+## API
+You can't test jwt authent with swagger
+This is a short documentation:
+
+get token (with body):
+http://localhost:8000/auth/login
+```
+{"username": "A", "password": "test"}
+```
+
+get token (with body):
+http://localhost:8000/auth/login
+```
+{"username": "A", "password": "test"}
+```
+get profile with generated token:
+http://localhost:8000/auth/profile
+don't forget the token: 
+```
+"Authorization: Bearer ${TOKEN}"
+```
+
 
