@@ -58,4 +58,9 @@ don't forget the token:
 "Authorization: Bearer ${TOKEN}"
 ```
 
+## TEST
+there is some units tests
 
+npm run test
+
+Only a part of the application is covered by tests at the moment
