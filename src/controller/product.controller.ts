@@ -1,5 +1,6 @@
 import { HttpService } from "@nestjs/axios";
 import { Get, Response, Controller, Body, HttpException, HttpStatus, Res, Param } from "@nestjs/common";
+import { ApiParam, ApiProperty } from "@nestjs/swagger";
 import { catchError, from, map, Observable } from "rxjs";
 import { Code } from "src/model/product/code.model";
 import { Codes } from "src/model/product/codesList.model";
@@ -16,7 +17,12 @@ export class ProductController {
       ) {}
   
     @Get('ean/:listEan')
-    findProductByEan(@Param('listEan') listEan: string) {
+    @ApiParam({
+      type: 'string',
+      name: 'listEan',
+      example: '8024884500403,3263855093192'
+    })
+    findProductsByEan(@Param('listEan') listEan: string): Observable<Product[]> {
       let strCode = 'code=';
       let codes: string[] = listEan.split(',');
       for(let i = 0; i<codes.length; i++) {
